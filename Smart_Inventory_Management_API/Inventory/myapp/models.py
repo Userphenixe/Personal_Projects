@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 class Supplier(models.Model):
     name = models.CharField(max_length= 255)
@@ -27,6 +28,18 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def decrement_stock(self, quantity):
+        if self.unit_stock >= quantity:
+            self.unit_stock -= quantity
+            self.save()
+            if self.unit_stock == 0:
+                print(f"Warning: The stock of {self.name} is now empty!")
+        else:
+            raise ValidationError(f"Not enough stock for {self.name}. Available: {self.unit_stock}")
+        
+    def is_available(self):
+        return self.unit_stock > 0
 
 class Customer(models.Model):
     name = models.CharField(max_length= 255)
@@ -53,3 +66,15 @@ class Order(models.Model):
 
        def __str__(self):
         return f"Order {self.id} - {self.customer.name}"
+       
+       def calculate_order_price(self):
+        total_price = sum([product.price for product in self.products.all()])
+        return total_price
+       
+       def save(self, *args, **kwargs):
+        super().save(*args, **kwargs) 
+        for product in self.products.all():
+            if product.is_available():
+                product.decrement_stock(1)
+            else:
+                raise ValidationError(f"The product {product.name} is out of stock and cannot be ordered.")
