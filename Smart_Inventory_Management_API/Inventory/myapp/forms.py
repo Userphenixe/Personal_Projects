@@ -3,11 +3,11 @@ from .models import Customer, Order
 
 class FormCustomer(ModelForm):
     class Meta:
-        name = Customer
+        model = Customer
         fields = '__all__'
 
 class FormOrder(ModelForm):
     class Meta:
-        name = Order
+        model = Order
         fields = '__all__'
 
