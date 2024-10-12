@@ -8,14 +8,14 @@ class Supplier(models.Model):
     created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
     
 class Category(models.Model):
     name = models.CharField(max_length= 255)
     description = models.CharField(max_length=1000)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
     
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -27,7 +27,7 @@ class Product(models.Model):
     supplier = models.ForeignKey(Supplier, on_delete= models.PROTECT, related_name='products')
 
     def __str__(self):
-        return self.name
+        return str(self.name)
     
     def decrement_stock(self, quantity):
         if self.unit_stock >= quantity:
@@ -48,7 +48,7 @@ class Customer(models.Model):
     created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
     
 class Order(models.Model):
        STATUS_CHOICES = [
