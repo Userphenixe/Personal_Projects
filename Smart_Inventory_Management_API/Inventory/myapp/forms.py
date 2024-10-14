@@ -10,4 +10,3 @@ class FormOrder(ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
-
