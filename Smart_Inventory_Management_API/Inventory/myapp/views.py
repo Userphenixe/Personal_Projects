@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .serializers import SerializerProduct, SerializerSupplier
+from .serializers import SerializerProduct, SerializerSupplier, SerializerCategory
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
-from .models import Product, Supplier
+from .models import Product, Supplier, Category
 
 def home(request):
     return HttpResponse('Welcome!')
 
-class ProductsView(generics.ListAPIView):
+class ProductsView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Product.objects.all()
     serializer_class = SerializerProduct
@@ -18,7 +18,7 @@ class ProductViewItem(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = SerializerProduct
 
-class SuppliersView(generics.ListAPIView):
+class SuppliersView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Supplier.objects.all()
     serializer_class = SerializerSupplier
@@ -27,3 +27,13 @@ class SupplierViewItem(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Supplier.objects.all()
     serializer_class = SerializerSupplier
+
+class CategoriesView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Category.objects.all()
+    serializer_class = SerializerCategory
+
+class CategoryViewItem(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Category.objects.all()
+    serializer_class = SerializerCategory
