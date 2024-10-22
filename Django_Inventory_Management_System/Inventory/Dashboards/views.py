@@ -5,3 +5,9 @@ def index(request):
 
 def staff(request):
     return render (request, 'dashboards/staff.html', {})
+
+def products(request):
+    return render (request, 'dashboards/products.html', {})
+
+def orders(request):
+    return render (request, 'dashboards/orders.html', {})
