@@ -1,13 +1,20 @@
 from django.contrib import admin
-from .models import Product
+from .models import Product, Order
 from django.contrib.auth.models import Group
 
 admin.site.site_header = 'KeyInventory Dashboard'
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('Name', 'category', 'Quantity', )
+    list_display = ('name', 'category', 'quantity', )
     list_filter = ['category']
-    search_fields = ['Name', 'category']
+    search_fields = ['name', 'category']
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('product', 'staff', 'order_quantity', 'order_date', )
+    list_filter = ['product', 'order_date']
+    search_fields = ['staff', 'order_date']
 
 admin.site.unregister(Group)
-admin.site.register(Product)
+admin.site.register(Product, ProductAdmin)
+admin.site.register(Order,  OrderAdmin)
+
