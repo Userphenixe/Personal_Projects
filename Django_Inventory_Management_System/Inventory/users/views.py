@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from  django.contrib.auth.forms import  UserCreationForm
 from .forms import User_Creation_Form
 
 def register(request):
@@ -9,7 +8,7 @@ def register(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data["password"])  # Hachage du mot de passe
             user.save()
-            return redirect('dashboards-index')
+            return redirect('login')
     else:
         form =  User_Creation_Form()
     context =  {'form': form}

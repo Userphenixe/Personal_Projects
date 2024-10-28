@@ -126,6 +126,9 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR/"asert/"
 
+LOGIN_REDIRECT_URL = 'dashboards-index'
+LOGIN_URL = 'login'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
