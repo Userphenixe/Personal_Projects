@@ -15,11 +15,14 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link text-white" href=""> Profile
+                    <a class="nav-link text-white" href="{%url 'profile'%}"> Profile
                         <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{%url 'logout'%}">Logout</a>
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link text-white btn btn-link">Logout</button>
+                    </form>
                 </li>
             </ul>
             {% else %}
