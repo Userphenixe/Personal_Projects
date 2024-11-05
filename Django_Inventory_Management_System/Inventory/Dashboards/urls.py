@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, staff, orders, products, product_delete
+from .views import index, staff, orders, products, product_delete, product_update
 
 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path('orders/', orders, name= 'dashboards-orders'),
     path('products/', products, name= 'dashboards-products'),
     path('products/Delete/<int:pk>/', product_delete, name= 'dashboards-product-delete'),
+    path('products/Edit/<int:pk>/', product_update, name= 'dashboards-product-update'),
 ]

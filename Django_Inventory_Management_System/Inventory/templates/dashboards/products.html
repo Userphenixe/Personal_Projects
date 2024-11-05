@@ -41,7 +41,7 @@
                     <td>{{ product.quantity }}</td>
                     <td>
                         <a class="btn btn-info btn-sm mr-2"
-                            href="">Edit</a>
+                            href="{%url 'dashboards-product-update' product.id%}">Edit</a>
                         <a class="btn btn-danger btn-sm ml-2"
                             href="{%url 'dashboards-product-delete' product.id%}">Delete</a>
                     </td>
