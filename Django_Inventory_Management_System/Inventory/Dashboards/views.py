@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import  login_required
+from .models  import Product
+from .forms import  ProductForm
+
 
 @login_required
 def index(request):
@@ -11,7 +14,20 @@ def staff(request):
 
 @login_required
 def products(request):
-    return render (request, 'dashboards/products.html', {})
+    products = Product.objects.all()
+    if  request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboards-products')
+    else:
+        form  = ProductForm()
+    context = {
+        'products': products,
+        'form':  form,
+    }
+    return render (request, 'dashboards/products.html',  context)
+
 
 @login_required
 def orders(request):
