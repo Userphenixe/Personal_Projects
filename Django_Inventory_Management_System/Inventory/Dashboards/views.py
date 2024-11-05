@@ -28,6 +28,17 @@ def products(request):
     }
     return render (request, 'dashboards/products.html',  context)
 
+@login_required
+def product_delete(request, pk):
+    product = Product.objects.get(id=pk)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('dashboards-products')
+    context = {
+        'product': product
+    }
+    return render(request, 'dashboards/products_delete.html', context)
+
 
 @login_required
 def orders(request):
