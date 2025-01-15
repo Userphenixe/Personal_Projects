@@ -1,8 +1,8 @@
 {% extends 'partials/base.html' %}
-{% block title %}Products{% endblock %}
+{% block title %}Products Page{% endblock %}
 {% load crispy_forms_tags %}
-{% block content %}
 
+{% block content %}
 {% include 'partials/top_nav.html' %}
 <div class="row my-4">
     <div class="col-md-4">
@@ -18,7 +18,7 @@
             <hr>
             <form method="POST">
                 {% csrf_token %}
-                {{form.as_p}}
+                {{ form.as_p }}
                 <input class="btn btn-success btn-block" type="submit" value="Add">
             </form>
         </div>
@@ -34,16 +34,16 @@
                 </tr>
             </thead>
             <tbody>
-                {% for product in products %}
+                {% for product in product %}
                 <tr>
                     <td>{{ product.name }}</td>
                     <td>{{ product.category }}</td>
                     <td>{{ product.quantity }}</td>
                     <td>
                         <a class="btn btn-info btn-sm mr-2"
-                            href="{%url 'dashboards-product-update' product.id%}">Edit</a>
+                            href="{% url 'dashboards-product-update' product.id %}">Edit</a>
                         <a class="btn btn-danger btn-sm ml-2"
-                            href="{%url 'dashboards-product-delete' product.id%}">Delete</a>
+                            href="{% url 'dashboards-product-delete' product.id %}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

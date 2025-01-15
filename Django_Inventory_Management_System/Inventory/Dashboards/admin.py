@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Product, Order
-from django.contrib.auth.models import Group
 
 admin.site.site_header = 'KeyInventory Dashboard'
 
@@ -14,7 +13,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['product', 'order_date']
     search_fields = ['staff', 'order_date']
 
-admin.site.unregister(Group)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order,  OrderAdmin)
 
