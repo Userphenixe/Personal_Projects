@@ -10,7 +10,7 @@ This repository contains Python scripts for performing common data engineering t
 - **Pandas**: A powerful library used for data manipulation and analysis in Python.
 - **BeautifulSoup**: Used for parsing HTML and XML documents to extract useful data.
 - **Requests**: A library to send HTTP requests and retrieve data from web servers.
-- **Databases**: Interfacing with relational databases (e.g., MySQL, PostgreSQL) to store and manage data.
+- **Databases**: Interfacing with relational databases (e.g., MySQL, PostgreSQL, Oracle) to store and manage data.
 
 ## Features
 
