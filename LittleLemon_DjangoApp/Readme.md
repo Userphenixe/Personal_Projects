@@ -53,8 +53,8 @@ cd LittleLemon-DjangoApp
 
 ### 3. Activate the virtual environment
 ```bash
-source ProjectScope/scripts/activate  # On macOS/Linux
-ProjectScope\Scripts\activate        # On Windows
+source myvenv/scripts/activate  # On macOS/Linux
+myvenv\Scripts\activate        # On Windows
 ```
 
 ### 4. Apply the database migrations
