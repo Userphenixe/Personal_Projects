@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+  <article>
+    <h1>Make a reservation</h1>
+    <!--Begin row-->
+    <div class="row">
+      <!--Begin col-->
+      <div class="column">
+          <form method="POST" id="form">
+            {% csrf_token %}
+            <p>
+              <label for="first_name">Name:</label>
+              <input type="text" placeholder="Your Name" maxlength="200" required="" id="first_name">
+            </p>
+            <p>
+              <label for= "BookingDate">Reservation Date:</label>
+              <input type= "date" placeholder="Your Reservation date" required="" id="BookingDate">
+            </p>
+      
+            <p>
+              <label for="No_of_guests">Number of Guests:</label>
+              <input type= "number" placeholder="Your Guests" required="" id="No_of_guests">
+            </p>
+            <button type="button" id="button">Reserve</button>
+          </form>
+      </div>
+      <!--End col-->
+
+      <!--Begin col-->
+      <div class="column">
+        <h2>Bookings For <span id="today"></span></h2>
+        <div id="bookings">
+        </div>
+      </div>
+      <!--End col-->
+    </div>
+    <!--End row-->
+
+  </article>
+</section>
+
+<script>
+  // Set today's date as default in the BookingDate input
+  const date = new Date();
+  document.getElementById('BookingDate').value = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+
+  // Fetch the current bookings for the selected date
+  getBookings();
+  document.getElementById('BookingDate').addEventListener('change', getBookings);
+
+  function getBookings() {
+    const date = document.getElementById('BookingDate').value;
+    document.getElementById('today').innerHTML = date;
+    
+    fetch("{% url 'BookingListView' %}" + '?date=' + date)
+      .then(r => r.json())
+      .then(data => {
+        let bookings = '';
+        data.forEach(item => {
+          bookings += `<p>${item.Name} - ${item.No_of_guests} guests</p>`;
+        });
+        
+        if (bookings === '') {
+          bookings = "No bookings";
+        }
+        document.getElementById('bookings').innerHTML = bookings;
+      })
+      .catch(error => {
+        console.log('Error:', error);
+      });
+  }
+
+  // Send the booking data when clicking the Reserve button
+  document.getElementById('button').addEventListener('click', function (e) {
+    const formdata = {
+      Name: document.getElementById('first_name').value,
+      BookingDate: document.getElementById('BookingDate').value,
+      No_of_guests: document.getElementById('No_of_guests').value,
+    };
+
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    fetch("{% url 'BookingListView' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+      },
+      body: JSON.stringify(formdata)
+    })
+    .then(response => response.json())
+    .then(data => {
+      getBookings(); // Refresh the bookings after successful submission
+    })
+    .catch(error => {
+      console.log('Error:', error);
+    });
+  });
+</script>
+{% endblock %}

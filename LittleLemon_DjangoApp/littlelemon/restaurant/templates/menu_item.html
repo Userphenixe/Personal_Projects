@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+<section>
+   <article>
+      <h1>Menu item</h1>
+      <span>
+         <a href="{% url 'home' %}">Home</a> /
+         <a href="{% url 'menu' %}">Menu</a>/
+         {{menu_item.Name}}
+      </span>
+      <!--Begin row-->
+      <div class="row">
+         <!--Begin col-->
+         <div class="column">
+            <h2>
+                {{ menu_item.Name }}
+            </h2>
+            <p>
+                Price: ${{ menu_item.Price }}.00
+            </p>
+         </div>
+         <!--End col-->
+         <!--Begin col-->
+         <div class="column">
+            <img src="/Final Assessment/littlelemon/restaurant/static/img/{{menu_item.Name}}.jpg" alt="{{ menu_item.Name}}" />
+        </div>
+         <!--End col-->
+      </div>
+      <!--End row-->
+   </article>
+</section>
+{% endblock %}
